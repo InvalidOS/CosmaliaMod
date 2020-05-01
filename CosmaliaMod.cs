@@ -18,6 +18,9 @@ using Terraria.Graphics.Shaders;
 using CosmaliaMod.GUI;
 using MonoMod.Cil;
 using Mono.Cecil.Cil;
+using CosmaliaMod.Races;
+using CosmaliaMod.Races.Ram;
+using CosmaliaMod.Races.Longtail;
 
 
 namespace CosmaliaMod
@@ -130,6 +133,9 @@ namespace CosmaliaMod
                     raceMenu = new RaceMenu();
                     raceMenu.OnInitialize();
                     raceMenu.race = Main.PendingPlayer.GetModPlayer<CosmaliaPlayer>();
+					raceMenu.elf = Main.PendingPlayer.GetModPlayer<Elf>();
+					raceMenu.ram = Main.PendingPlayer.GetModPlayer<Ram>();
+					raceMenu.longtail = Main.PendingPlayer.GetModPlayer<Longtail>();
 					raceMenu.player = Main.PendingPlayer;
                     RaceMenu.created = true;
 

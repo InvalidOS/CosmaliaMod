@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.GameContent.Achievements;
 using Terraria.ID;
 using Terraria.ModLoader;
+using CosmaliaMod.Races.Elf;
 
 namespace CosmaliaMod.Races
 {
@@ -28,13 +29,13 @@ namespace CosmaliaMod.Races
 
 		public override bool UseItem(Player player)
 		{
-			if (player.GetModPlayer<Races.Elf>().isRace)
+			if (player.GetModPlayer<Races.Elf.Elf>().isRace)
 			{
-				player.GetModPlayer<Races.Elf>().isRace = false;
+				player.GetModPlayer<Races.Elf.Elf>().isRace = false;
 			}
 			else
 			{
-				player.GetModPlayer<Races.Elf>().isRace = true;
+				player.GetModPlayer<Races.Elf.Elf>().isRace = true;
 			}
 			
 			//player.GetModPlayer<RacePlayer>().raceSelected = true;

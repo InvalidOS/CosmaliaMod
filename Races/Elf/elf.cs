@@ -14,7 +14,7 @@ using Terraria.GameInput;
 using Terraria.ModLoader.IO;
 using CosmaliaMod;
 
-namespace CosmaliaMod.Races
+namespace CosmaliaMod.Races.Elf
 {
 	public class Elf : CosmaliaRace
 	{
@@ -23,8 +23,8 @@ namespace CosmaliaMod.Races
 		
 		public override void ResetEffects()
 		{
-			ears = mod.GetTexture("Races/ElfEar");
-			head = mod.GetTexture("Races/ElfFace");
+			ears = mod.GetTexture("Races/Elf/ElfEar");
+			head = mod.GetTexture("Races/Elf/ElfFace");
 			
 			meleeAttack = 40;
 			rangedAttack = 65;

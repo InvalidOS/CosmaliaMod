@@ -43,6 +43,11 @@ namespace CosmaliaMod.GUI
 		{
 			QuickAddButton("Race Selection", new Vector2(Main.screenWidth / 2, 700), new MouseEvent(ChangeToRace));
 			QuickAddButton("Sclera", new Vector2(Main.screenWidth / 2, 660), new MouseEvent(Eye2));
+
+			QuickAddButton("Horns", new Vector2(Main.screenWidth / 4, 340), new MouseEvent(Customize1));
+			QuickAddButton("Claws", new Vector2(Main.screenWidth / 4, 380), new MouseEvent(Customize2));
+			QuickAddButton("Tail", new Vector2(Main.screenWidth / 4, 420), new MouseEvent(Customize3));
+			QuickAddButton("Race", new Vector2(Main.screenWidth / 4, 660), new MouseEvent(ChangeRace));
 		}
 		private void ChangeToHuman(UIMouseEvent evt, UIElement listeningElement)
 		{
@@ -50,9 +55,13 @@ namespace CosmaliaMod.GUI
 			visible = false;
 			visible2 = false;
 			base.RemoveAllChildren();
-			QuickAddButton("Race Customization", new Vector2(Main.screenWidth / 2, 700), new MouseEvent(ChangeToRace));
-			QuickAddButton("Sclera", new Vector2(Main.screenWidth / 2, 680), new MouseEvent(Eye2));
-			Main.instance.DrawPlayer(player, player.position, 0f, Vector2.Zero, 0f);
+			QuickAddButton("Sclera", new Vector2(Main.screenWidth / 2, 660), new MouseEvent(Eye2));
+
+			QuickAddButton("Horns", new Vector2(Main.screenWidth / 4, 340), new MouseEvent(Customize1));
+			QuickAddButton("Claws", new Vector2(Main.screenWidth / 4, 380), new MouseEvent(Customize2));
+			QuickAddButton("Tail", new Vector2(Main.screenWidth / 4, 420), new MouseEvent(Customize3));
+			QuickAddButton("Race", new Vector2(Main.screenWidth / 4, 660), new MouseEvent(ChangeRace));
+
 			part = ActivePart.none;
 		}
 
@@ -60,12 +69,14 @@ namespace CosmaliaMod.GUI
 		{
 			visible2 = true;
 			base.RemoveAllChildren();
-			QuickAddColor(ColorChannel.r, new Vector2(Main.screenWidth / 2, 300), race.scleraColor.R);
-			QuickAddColor(ColorChannel.g, new Vector2(Main.screenWidth / 2, 340), race.scleraColor.G);
-			QuickAddColor(ColorChannel.b, new Vector2(Main.screenWidth / 2, 380), race.scleraColor.B);
+			QuickAddColor(ColorChannel.r, new Vector2(3*Main.screenWidth / 4, 300), race.scleraColor.R);
+			QuickAddColor(ColorChannel.g, new Vector2(3*Main.screenWidth / 4, 340), race.scleraColor.G);
+			QuickAddColor(ColorChannel.b, new Vector2(3*Main.screenWidth / 4, 380), race.scleraColor.B);
+
 			part = ActivePart.eye;
 
-			QuickAddButton("Back", new Vector2(Main.screenWidth / 2, 700), new MouseEvent(ChangeToHuman));
+			currentColor = new Color(255, 255, 255);
+			QuickAddButton("Back", new Vector2(3*Main.screenWidth / 4, 720), new MouseEvent(ChangeToHuman));
 		}
 
 		private void ChangeToRace(UIMouseEvent evt, UIElement listeningElement)
@@ -78,8 +89,8 @@ namespace CosmaliaMod.GUI
 			QuickAddButton("Back", new Vector2(Main.screenWidth / 2, 700), new MouseEvent(ChangeToHuman));
 			QuickAddButton("Horns", new Vector2(Main.screenWidth / 2, 340), new MouseEvent(Customize1));
 			QuickAddButton("Claws", new Vector2(Main.screenWidth / 2, 380), new MouseEvent(Customize2));
-			QuickAddButton("Tail", new Vector2(Main.screenWidth / 2, 380), new MouseEvent(Customize3));
-			QuickAddButton("Race", new Vector2(Main.screenWidth / 2, 420), new MouseEvent(ChangeRace));
+			QuickAddButton("Tail", new Vector2(Main.screenWidth / 2, 420), new MouseEvent(Customize3));
+			QuickAddButton("Race", new Vector2(Main.screenWidth / 2, 460), new MouseEvent(ChangeRace));
 
 			currentColor = new Color(0, 0, 0);
 			part = ActivePart.none;
@@ -89,32 +100,35 @@ namespace CosmaliaMod.GUI
 		private void Customize1(UIMouseEvent evt, UIElement listeningElement)
 		{
 			base.RemoveAllChildren();
-			QuickAddColor(ColorChannel.r, new Vector2(Main.screenWidth / 2, 300), race.hornColor.R);
-			QuickAddColor(ColorChannel.g, new Vector2(Main.screenWidth / 2, 340), race.hornColor.G);
-			QuickAddColor(ColorChannel.b, new Vector2(Main.screenWidth / 2, 380), race.hornColor.B);
+			QuickAddColor(ColorChannel.r, new Vector2(3 * Main.screenWidth / 4, 300), race.hornColor.R);
+			QuickAddColor(ColorChannel.g, new Vector2(3 * Main.screenWidth / 4, 340), race.hornColor.G);
+			QuickAddColor(ColorChannel.b, new Vector2(3 * Main.screenWidth / 4, 380), race.hornColor.B);
 			part = ActivePart.horn;
+			currentColor = new Color(0, 0, 0);
 
-			QuickAddButton("Back", new Vector2(Main.screenWidth / 2, 700), new MouseEvent(ChangeToRace));
+			QuickAddButton("Back", new Vector2(Main.screenWidth / 2, 700), new MouseEvent(ChangeToHuman));
 		}
 		private void Customize2(UIMouseEvent evt, UIElement listeningElement)
 		{
 			base.RemoveAllChildren();
-			QuickAddColor(ColorChannel.r, new Vector2(Main.screenWidth / 2, 300), race.clawColor.R);
-			QuickAddColor(ColorChannel.g, new Vector2(Main.screenWidth / 2, 340), race.clawColor.G);
-			QuickAddColor(ColorChannel.b, new Vector2(Main.screenWidth / 2, 380), race.clawColor.B);
+			QuickAddColor(ColorChannel.r, new Vector2(3 * Main.screenWidth / 4, 300), race.clawColor.R);
+			QuickAddColor(ColorChannel.g, new Vector2(3 * Main.screenWidth / 4, 340), race.clawColor.G);
+			QuickAddColor(ColorChannel.b, new Vector2(3 * Main.screenWidth / 4, 380), race.clawColor.B);
 			part = ActivePart.tail;
+			currentColor = new Color(0, 0, 0);
 
-			QuickAddButton("Back", new Vector2(Main.screenWidth / 2, 700), new MouseEvent(ChangeToRace));
+			QuickAddButton("Back", new Vector2(Main.screenWidth / 2, 700), new MouseEvent(ChangeToHuman));
 		}
 		private void Customize3(UIMouseEvent evt, UIElement listeningElement)
 		{
 			base.RemoveAllChildren();
-			QuickAddColor(ColorChannel.r, new Vector2(Main.screenWidth / 2, 300), race.tailColor.R);
-			QuickAddColor(ColorChannel.g, new Vector2(Main.screenWidth / 2, 340), race.tailColor.G);
-			QuickAddColor(ColorChannel.b, new Vector2(Main.screenWidth / 2, 380), race.tailColor.B);
+			QuickAddColor(ColorChannel.r, new Vector2(3 * Main.screenWidth / 4, 300), race.tailColor.R);
+			QuickAddColor(ColorChannel.g, new Vector2(3 * Main.screenWidth / 4, 340), race.tailColor.G);
+			QuickAddColor(ColorChannel.b, new Vector2(3 * Main.screenWidth / 4, 380), race.tailColor.B);
 			part = ActivePart.claw;
+			currentColor = new Color(0, 0, 0);
 
-			QuickAddButton("Back", new Vector2(Main.screenWidth / 2, 700), new MouseEvent(ChangeToRace));
+			QuickAddButton("Back", new Vector2(Main.screenWidth / 2, 700), new MouseEvent(ChangeToHuman));
 		}
 
 		private void ChangeRace(UIMouseEvent evt, UIElement listeningElement)
@@ -161,10 +175,10 @@ namespace CosmaliaMod.GUI
 
 				spriteBatch.Draw(tex, new Vector2(Main.screenWidth / 2 + 200, 330), tex.Frame(), currentColor, 0, tex.Frame().Size() / 2, 2, 0, 0);
 
-				player.PlayerFrame();
+				//player.PlayerFrame();
 				player.position.X = Main.screenWidth / 2 - 16;
 				player.position.Y = 176f + Main.screenPosition.Y;
-				Main.instance.DrawPlayer(player, player.position, 0f, Vector2.Zero, 0f);
+				Main.instance.DrawPlayer(player, player.position, 0f, Vector2.Zero, 1f);
 
 				currentColor.A = 255;
 			}
@@ -172,11 +186,14 @@ namespace CosmaliaMod.GUI
 			if (visible2)
 			{
 				Texture2D tex = ModContent.GetTexture("CosmaliaMod/GUI/Bar");
-				spriteBatch.Draw(tex, new Vector2(Main.screenWidth / 2 + 200, 310), tex.Frame(), race.scleraColor, 0, tex.Frame().Size() / 2, 2, 0, 0);
-				player.PlayerFrame();
+
+				spriteBatch.Draw(tex, new Vector2(Main.screenWidth / 2 + 200, 330), tex.Frame(), race.scleraColor, 0, tex.Frame().Size() / 2, 2, 0, 0);
+				spriteBatch.Draw(tex, new Vector2(Main.screenWidth / 2 + 200, 360), tex.Frame(), player.eyeColor, 0, tex.Frame().Size() / 2, 2, 0, 0);
+
+				//player.PlayerFrame();
 				player.position.X = Main.screenWidth / 2 - 16;
 				player.position.Y = 176f + Main.screenPosition.Y;
-				Main.instance.DrawPlayer(player, player.position, 0f, Vector2.Zero, 0f);
+				Main.instance.DrawPlayer(player, player.position, 0f, Vector2.Zero, 1f);
 			}
 
 			base.Draw(spriteBatch);
@@ -266,6 +283,7 @@ namespace CosmaliaMod.GUI
 		public int sliderPos = 0;
 		private ColorChannel Channel;
 		private Rectangle sliderBox { get => new Rectangle((int)GetDimensions().X + sliderPos - 9, (int)GetDimensions().Y + 2, 18, 28); }
+		private Rectangle rect2 { get => new Rectangle((int)GetDimensions().X, (int)GetDimensions().Y + 2, (int)GetDimensions().Width, (int)GetDimensions().Height); }
 
 		public ColorSlider(ColorChannel channel) { Channel = channel; }
 		public override void Draw(SpriteBatch spriteBatch)
@@ -298,7 +316,7 @@ namespace CosmaliaMod.GUI
 		
 		public override void Update(GameTime gameTime)
 		{
-			if (sliderBox.Contains(Main.MouseScreen.ToPoint()) && Main.mouseLeft)
+			if (rect2.Contains(Main.MouseScreen.ToPoint()) && Main.mouseLeft)
 			{
 				sliderPos = (int)(Main.MouseScreen.ToPoint().X - GetDimensions().X);
 			}

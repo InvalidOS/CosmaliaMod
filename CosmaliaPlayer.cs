@@ -11,6 +11,7 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using CosmaliaMod;
 using CosmaliaMod.Races;
+using CosmaliaMod.Races.Elf;
 using CosmaliaMod.Races.Ram;
 using CosmaliaMod.Races.Longtail;
 
@@ -523,12 +524,26 @@ namespace CosmaliaMod
 			}
 			Player drawPlayer = drawInfo.drawPlayer;
 			Mod mod = ModLoader.GetMod("CosmaliaMod");
-			Elf elf = drawPlayer.GetModPlayer<Races.Elf>();
+			Elf elf = drawPlayer.GetModPlayer<Elf>();
+			Longtail longtail = drawPlayer.GetModPlayer<Races.Longtail.Longtail>();
 			Rectangle? frame = drawPlayer.bodyFrame;
 			Texture2D texture;
 			if (elf.isRace)
 			{
-				texture = elf.ears;
+				texture = mod.GetTexture("Races/Elf/ElfEar");
+
+				int frameSize = texture.Height / 20;
+				int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
+				int drawY = (int)(drawInfo.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y - 3);
+				DrawData data = new DrawData(texture, new Vector2(drawX, drawY), frame,
+					drawInfo.faceColor,
+					0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f,
+					drawInfo.spriteEffects, 0);
+				Main.playerDrawData.Add(data);
+			}
+			if (longtail.isRace)
+			{
+				texture = mod.GetTexture("Races/Longtail/Ear");
 
 				int frameSize = texture.Height / 20;
 				int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
@@ -549,12 +564,14 @@ namespace CosmaliaMod
 			}
 			Player drawPlayer = drawInfo.drawPlayer;
 			Mod mod = ModLoader.GetMod("CosmaliaMod");
-			Elf elf = drawPlayer.GetModPlayer<Races.Elf>();
+			Elf elf = drawPlayer.GetModPlayer<Elf>();
+			CosmaliaPlayer modPlayer = drawPlayer.GetModPlayer<CosmaliaPlayer>();
 			Rectangle? frame = drawPlayer.bodyFrame;
 			Texture2D texture;
 			if (elf.isRace)
 			{
-				texture = elf.head;
+				//texture = elf.head;
+				texture = mod.GetTexture("Races/Elf/ElfFace");
 
 				int frameSize = texture.Height / 20;
 				int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
@@ -575,18 +592,20 @@ namespace CosmaliaMod
 			}
 			Player drawPlayer = drawInfo.drawPlayer;
 			Mod mod = ModLoader.GetMod("CosmaliaMod");
-			Ram ram = drawPlayer.GetModPlayer<Races.Ram.Ram>();
+			Ram ram = drawPlayer.GetModPlayer<Ram>();
+			CosmaliaPlayer modPlayer = drawPlayer.GetModPlayer<CosmaliaPlayer>();
 			Rectangle? frame = drawPlayer.bodyFrame;
 			Texture2D texture;
 			if (ram.isRace)
 			{
-				texture = ram.headFront;
+				texture = mod.GetTexture("Races/Ram/HornFront");
 
 				int frameSize = texture.Height / 20;
 				int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
 				int drawY = (int)(drawInfo.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y - 3);
 				DrawData data = new DrawData(texture, new Vector2(drawX, drawY), frame,
-					drawInfo.shirtColor,
+					Color.Lerp(Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f),
+						(int)((drawInfo.position.Y + drawPlayer.height / 2f) / 16f)), modPlayer.hornColor, .5f),
 					0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f,
 					drawInfo.spriteEffects, 0);
 				data.shader = drawInfo.headArmorShader;
@@ -603,17 +622,20 @@ namespace CosmaliaMod
 			Player drawPlayer = drawInfo.drawPlayer;
 			Mod mod = ModLoader.GetMod("CosmaliaMod");
 			Ram ram = drawPlayer.GetModPlayer<Races.Ram.Ram>();
+			CosmaliaPlayer modPlayer = drawPlayer.GetModPlayer<CosmaliaPlayer>();
 			Rectangle? frame = drawPlayer.bodyFrame;
 			Texture2D texture;
 			if (ram.isRace)
 			{
-				texture = ram.headBack;
+				// texture = ram.headBack;
+				texture = mod.GetTexture("Races/Ram/HornBack");
 
 				int frameSize = texture.Height / 20;
 				int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
 				int drawY = (int)(drawInfo.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y - 3);
 				DrawData data = new DrawData(texture, new Vector2(drawX, drawY), frame,
-					drawInfo.shirtColor,
+					Color.Lerp(Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f),
+						(int)((drawInfo.position.Y + drawPlayer.height / 2f) / 16f)), modPlayer.hornColor, .5f),
 					0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f,
 					drawInfo.spriteEffects, 0);
 				data.shader = drawInfo.headArmorShader;
@@ -628,20 +650,22 @@ namespace CosmaliaMod
 				return;
 			}
 			Player drawPlayer = drawInfo.drawPlayer;
-			Mod mod = ModLoader.GetMod("longTail");
-			Longtail longtail = drawPlayer.GetModPlayer<Races.Longtail.Longtail>();
+			Mod mod = ModLoader.GetMod("CosmaliaMod");
+			Longtail longtail = drawPlayer.GetModPlayer<Longtail>();
+			CosmaliaPlayer modPlayer = drawPlayer.GetModPlayer<CosmaliaPlayer>();
 			Texture2D texture;
 			if (longtail.isRace)
 			{
 				Rectangle? frame = longtail.TailAnimation();
-				texture = longtail.tail;
+				//texture = longtail.tail;
+				texture = mod.GetTexture("Races/Longtail/Tail");
 
 				int frameSize = texture.Height / 10;
-				int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X - (3 * drawPlayer.direction));
-				int drawY = (int)(drawInfo.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y - 3);
+				int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
+				int drawY = (int)(drawInfo.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y - 3 - 28);
 				DrawData data = new DrawData(texture, new Vector2(drawX, drawY), frame,
-					Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f),
-						(int)((drawInfo.position.Y + drawPlayer.height / 2f) / 16f)),
+					Color.Lerp(Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f),
+						(int)((drawInfo.position.Y + drawPlayer.height / 2f) / 16f)), modPlayer.tailColor, .5f),
 					0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f,
 					drawInfo.spriteEffects, 0);
 				data.shader = drawInfo.hairShader;
@@ -656,19 +680,21 @@ namespace CosmaliaMod
 				return;
 			}
 			Player drawPlayer = drawInfo.drawPlayer;
-			Mod mod = ModLoader.GetMod("longTail");
-			Longtail longtail = drawPlayer.GetModPlayer<Races.Longtail.Longtail>();
+			Mod mod = ModLoader.GetMod("CosmaliaMod");
+			Longtail longtail = drawPlayer.GetModPlayer<Longtail>();
+			CosmaliaPlayer modPlayer = drawPlayer.GetModPlayer<CosmaliaPlayer>();
 			Rectangle? frame = drawPlayer.bodyFrame;
 			Texture2D texture;
 			if (longtail.isRace)
 			{
-				texture = longtail.clawsFront;
+				//texture = longtail.clawsFront;
+				texture = mod.GetTexture("Races/Longtail/clawsFront");
 
 				int frameSize = texture.Height / 20;
 				int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
 				int drawY = (int)(drawInfo.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y - 3);
 				DrawData data = new DrawData(texture, new Vector2(drawX, drawY), frame,
-					drawInfo.bodyColor,
+					modPlayer.clawColor,
 					0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f,
 					drawInfo.spriteEffects, 0);
 				data.shader = drawInfo.bodyArmorShader;
@@ -683,19 +709,21 @@ namespace CosmaliaMod
 				return;
 			}
 			Player drawPlayer = drawInfo.drawPlayer;
-			Mod mod = ModLoader.GetMod("longTail");
-			Longtail longtail = drawPlayer.GetModPlayer<Races.Longtail.Longtail>();
+			Mod mod = ModLoader.GetMod("CosmaliaMod");
+			Longtail longtail = drawPlayer.GetModPlayer<Longtail>();
+			CosmaliaPlayer modPlayer = drawPlayer.GetModPlayer<CosmaliaPlayer>();
 			Rectangle? frame = drawPlayer.bodyFrame;
 			Texture2D texture;
 			if (longtail.isRace)
 			{
-				texture = longtail.clawsBack;
+				//texture = longtail.clawsBack;
+				texture = mod.GetTexture("Races/Longtail/clawsBack");
 
 				int frameSize = texture.Height / 20;
 				int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
 				int drawY = (int)(drawInfo.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y - 3);
 				DrawData data = new DrawData(texture, new Vector2(drawX, drawY), frame,
-					drawInfo.bodyColor,
+					modPlayer.clawColor,
 					0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f,
 					drawInfo.spriteEffects, 0);
 				data.shader = drawInfo.bodyArmorShader;
@@ -709,7 +737,7 @@ namespace CosmaliaMod
 		public override void ModifyDrawLayers(List<PlayerLayer> layers)
 		{
 			int headIndex = layers.IndexOf(PlayerLayer.Head);
-			if (player.GetModPlayer<Races.Elf>().isRace)
+			if (player.GetModPlayer<Races.Elf.Elf>().isRace)
 			{
 				layers.Insert(headIndex + 1, REars);
 				layers.Insert(headIndex - 1, RFace);
@@ -723,11 +751,11 @@ namespace CosmaliaMod
 			if (player.GetModPlayer<Races.Longtail.Longtail>().isRace)
 			{
 				int bodyIndex = layers.IndexOf(PlayerLayer.Body);
-				int bodyIndex2 = layers.IndexOf(PlayerLayer.Skin);
+				int bodyIndex2 = layers.IndexOf(PlayerLayer.Wings);
 				int armIndex = layers.IndexOf(PlayerLayer.Arms);
 				layers.Insert(headIndex + 1, REars);
-				layers.Insert(bodyIndex + 1, RClawsBack);
-				layers.Insert(armIndex + 1, RClawsFront);
+				//layers.Insert(bodyIndex + 1, RClawsBack);
+				//layers.Insert(armIndex + 1, RClawsFront);
 				layers.Insert(bodyIndex2 - 1, RTail);
 			}
 

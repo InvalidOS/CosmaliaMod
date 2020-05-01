@@ -58,7 +58,7 @@ namespace CosmaliaMod.Races.Longtail
 		{
 			// update animations
 			// return new Rectangle?(0, 56 * frame, tail.Width, 56);
-			return new Rectangle?(new Rectangle(0, 0, tail.Width, tail.Height));
+			return new Rectangle?(new Rectangle(0, 0, mod.GetTexture("Races/Longtail/Tail").Width, mod.GetTexture("Races/Longtail/Tail").Height));
 		}
 	}
 }
