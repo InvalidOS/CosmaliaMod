@@ -1,0 +1,15 @@
+PREHARDMODE:
+- Feral (Melee, Magic)
+- Leaf (Ranged, Summoner)
+
+HARDMODE:
+- Enriched Demonite/Crimtane (Classless)
+- Froidium (Magic, Ranged)
+- Electrium (Melee, Summoner)
+
+POST-ML:
+- Arborite (Melee, Magic)
+- Cosmalium (Summoner, Ranged)
+- Enriched Luminite (General)
+
+- Stygitite (General)

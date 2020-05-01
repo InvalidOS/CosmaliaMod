@@ -1,0 +1,3 @@
+displayName = Cosmalia
+author = Invalid
+version = 0.1

@@ -1,0 +1,40 @@
+private void RaceMenuAttach(ILContext il)
+        {
+            ILCursor c = new ILCursor(il);
+            c.GotoNext(n => n.MatchLdsfld<Main>("menuMode") && n.Next.MatchLdcI4(2));
+            c.Index++;
+
+            c.EmitDelegate<RaceMenuDelegate>(EmitRaceDel);
+        }
+        private delegate void RaceMenuDelegate();
+        private RaceMenu raceMenu = new RaceMenu(); // create the ui
+        private UserInterface raceMenuUI = new UserInterface();
+        private void EmitRaceDel()
+        {
+            if (Main.menuMode == 2 || RaceMenu.visible)
+            {
+                if (!RaceMenu.created) // add the ui i want
+                {
+                    raceMenu = new RaceMenu();
+                    raceMenu.OnInitialize();
+                    raceMenu.race = Main.PendingPlayer.GetModPlayer<RaceHandler>();
+                    RaceMenu.created = true;
+
+                    raceMenuUI = new UserInterface();
+                    raceMenuUI.SetState(raceMenu);
+                }
+                SpriteBatch spriteBatch = Main.spriteBatch;
+
+                if (raceMenu != null && raceMenuUI != null)
+                {
+                    raceMenu.Draw(spriteBatch);                                   
+                }
+
+            }
+            else
+            {
+                RaceMenu.created = false;
+                raceMenu = null;
+                raceMenuUI = null;
+            }
+        }
