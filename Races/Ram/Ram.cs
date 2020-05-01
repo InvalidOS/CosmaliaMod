@@ -61,6 +61,14 @@ namespace CosmaliaMod.Races.Ram
 			}
 		}
 
+		public override void ModifyDrawInfo(ref PlayerDrawInfo drawInfo)
+		{
+			if (player.dashDelay < 0)
+			{
+				player.headRotation = (float)(Math.PI / 2) * player.direction;
+			}
+		}
+
 		public void ApplyDashHitbox()
 		{
 			Rectangle rectangle = new Rectangle((int)(player.position.X + player.velocity.X * 0.5 + (10 * player.direction)), (int)(player.position.Y + player.velocity.Y * 0.5 - 5), player.width + 6, player.height + 10);
@@ -73,7 +81,12 @@ namespace CosmaliaMod.Races.Ram
 					if (rectangle.Intersects(rect) && (npc.noTileCollide || player.CanHit(npc)))
 					{
 						float dmg = 30f * player.meleeDamage;
-						float num2 = 50f;
+						float num2 = 800f;
+
+						if (Main.hardMode) { num2 = 3000; }
+
+						if (NPC.downedPlantBoss) { num2 = 10000; }
+
 						bool crit = false;
 						if (Main.rand.Next(100) < player.meleeCrit)
 						{
@@ -88,8 +101,8 @@ namespace CosmaliaMod.Races.Ram
 						{
 							direction = 1;
 						}
-						player.ApplyDamageToNPC(npc, (int)dmg, num2, direction, crit);
-						player.Hurt(PlayerDeathReason.ByCustomReason(player.name + "bashed their skull in."), (int)(player.statLifeMax * .125f), direction * -10);
+						player.ApplyDamageToNPC(npc, (int)dmg, num2, direction * 6, crit);
+						player.Hurt(PlayerDeathReason.ByCustomReason(player.name + " bashed their skull in."), (int)(player.statLifeMax * .125f), direction * -2);
 						npc.immune[player.whoAmI] = 6;
 						player.immune = true;
 						player.immuneNoBlink = true;

@@ -70,8 +70,8 @@ namespace CosmaliaMod.GUI
 			QuickAddButton("Sclera", new Vector2(Main.screenWidth / 2, 660), new MouseEvent(Eye2));
 
 			QuickAddButton("Horns", new Vector2(Main.screenWidth / 4, 340), new MouseEvent(Customize1));
-			QuickAddButton("Claws", new Vector2(Main.screenWidth / 4, 380), new MouseEvent(Customize2));
-			QuickAddButton("Tail", new Vector2(Main.screenWidth / 4, 420), new MouseEvent(Customize3));
+			QuickAddButton("Claws", new Vector2(Main.screenWidth / 4, 380), new MouseEvent(Customize3));
+			QuickAddButton("Tail", new Vector2(Main.screenWidth / 4, 420), new MouseEvent(Customize2));
 			QuickAddButton("Race", new Vector2(Main.screenWidth / 4, 660), new MouseEvent(ChangeRace));
 
 			part = ActivePart.none;

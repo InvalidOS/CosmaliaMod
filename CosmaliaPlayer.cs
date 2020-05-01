@@ -246,8 +246,14 @@ namespace CosmaliaMod
 				drawInfo.position.Y -= 14;
 			}
 			skin = drawInfo.faceColor;
-			drawInfo.eyeWhiteColor = Color.Lerp(Lighting.GetColor((int)((drawInfo.position.X + player.width / 2f) / 16f),
-				(int)((drawInfo.position.Y + player.height / 2f) / 16f)), scleraColor, .5f);
+
+			drawInfo.eyeWhiteColor = Color.Lerp(scleraColor,
+				Lighting.GetColor(
+					(int)((drawInfo.position.X + player.width / 2f) / 16f),
+					(int)((drawInfo.position.Y + player.height / 2f) / 16f)
+				), .7f
+			);
+
 			if (intelligence < 95)
 			{
 				Filters.Scene.Activate("IntelligenceBlur", player.position).GetShader().UseColor(.15f, player.position.X, player.position.Y);
@@ -607,9 +613,14 @@ namespace CosmaliaMod
 				DrawData data = new DrawData(texture, new Vector2(drawX, drawY), frame,
 					Color.Lerp(Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f),
 						(int)((drawInfo.position.Y + drawPlayer.height / 2f) / 16f)), modPlayer.hornColor, .5f),
-					0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f,
+					drawPlayer.headRotation, new Vector2(texture.Width / 2f, frameSize / 2f), 1f,
 					drawInfo.spriteEffects, 0);
 				data.shader = drawInfo.headArmorShader;
+
+				if (drawPlayer.dashDelay > 0)
+				{
+					//data.position.X += 3;
+				}
 				Main.playerDrawData.Add(data);
 			}
 		});
@@ -637,9 +648,14 @@ namespace CosmaliaMod
 				DrawData data = new DrawData(texture, new Vector2(drawX, drawY), frame,
 					Color.Lerp(Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f),
 						(int)((drawInfo.position.Y + drawPlayer.height / 2f) / 16f)), modPlayer.hornColor, .5f),
-					0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f,
+					drawPlayer.headRotation, new Vector2(texture.Width / 2f, frameSize / 2f), 1f,
 					drawInfo.spriteEffects, 0);
 				data.shader = drawInfo.headArmorShader;
+
+				if (drawPlayer.dashDelay > 0)
+				{
+					//data.position.X += 3;
+				}
 				Main.playerDrawData.Add(data);
 			}
 		});
@@ -653,10 +669,31 @@ namespace CosmaliaMod
 			Player drawPlayer = drawInfo.drawPlayer;
 			Mod mod = ModLoader.GetMod("CosmaliaMod");
 			Longtail longtail = drawPlayer.GetModPlayer<Longtail>();
+			Ram ram = drawPlayer.GetModPlayer<Races.Ram.Ram>();
 			CosmaliaPlayer modPlayer = drawPlayer.GetModPlayer<CosmaliaPlayer>();
+			Rectangle? frame = drawPlayer.bodyFrame;
+			Texture2D texture;
+
 			if (longtail.isRace)
 			{
 				DrawData data = (DrawData)longtail.DrawTail(drawInfo);
+				Main.playerDrawData.Add(data);
+			}
+
+			if (ram.isRace)
+			{
+				// texture = ram.headBack;
+				texture = mod.GetTexture("Races/Ram/Tail");
+
+				int frameSize = texture.Height / 20;
+				int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
+				int drawY = (int)(drawInfo.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y - 3);
+				DrawData data = new DrawData(texture, new Vector2(drawX, drawY), frame,
+					Color.Lerp(Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f),
+						(int)((drawInfo.position.Y + drawPlayer.height / 2f) / 16f)), modPlayer.hornColor, .5f),
+					drawPlayer.headRotation, new Vector2(texture.Width / 2f, frameSize / 2f), 1f,
+					drawInfo.spriteEffects, 0);
+				data.shader = drawInfo.headArmorShader;
 				Main.playerDrawData.Add(data);
 			}
 		});
@@ -745,7 +782,7 @@ namespace CosmaliaMod
 				int armIndex = layers.IndexOf(PlayerLayer.Arms);
 				layers.Insert(headIndex + 1, REars);
 				layers.Insert(bodyIndex + 1, RClawsBack);
-				layers.Insert(armIndex + 1, RClawsFront);
+				layers.Add(RClawsFront);
 				layers.Insert(bodyIndex2 - 1, RTail);
 			}
 
