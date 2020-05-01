@@ -246,7 +246,8 @@ namespace CosmaliaMod
 				drawInfo.position.Y -= 14;
 			}
 			skin = drawInfo.faceColor;
-			drawInfo.eyeWhiteColor = scleraColor;
+			drawInfo.eyeWhiteColor = Color.Lerp(Lighting.GetColor((int)((drawInfo.position.X + player.width / 2f) / 16f),
+				(int)((drawInfo.position.Y + player.height / 2f) / 16f)), scleraColor, .5f);
 			if (intelligence < 95)
 			{
 				Filters.Scene.Activate("IntelligenceBlur", player.position).GetShader().UseColor(.15f, player.position.X, player.position.Y);
@@ -653,22 +654,9 @@ namespace CosmaliaMod
 			Mod mod = ModLoader.GetMod("CosmaliaMod");
 			Longtail longtail = drawPlayer.GetModPlayer<Longtail>();
 			CosmaliaPlayer modPlayer = drawPlayer.GetModPlayer<CosmaliaPlayer>();
-			Texture2D texture;
 			if (longtail.isRace)
 			{
-				Rectangle? frame = longtail.TailAnimation();
-				//texture = longtail.tail;
-				texture = mod.GetTexture("Races/Longtail/Tail");
-
-				int frameSize = texture.Height / 10;
-				int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
-				int drawY = (int)(drawInfo.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y - 3 - 28);
-				DrawData data = new DrawData(texture, new Vector2(drawX, drawY), frame,
-					Color.Lerp(Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f),
-						(int)((drawInfo.position.Y + drawPlayer.height / 2f) / 16f)), modPlayer.tailColor, .5f),
-					0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f,
-					drawInfo.spriteEffects, 0);
-				data.shader = drawInfo.hairShader;
+				DrawData data = (DrawData)longtail.DrawTail(drawInfo);
 				Main.playerDrawData.Add(data);
 			}
 		});
@@ -694,7 +682,8 @@ namespace CosmaliaMod
 				int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
 				int drawY = (int)(drawInfo.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y - 3);
 				DrawData data = new DrawData(texture, new Vector2(drawX, drawY), frame,
-					modPlayer.clawColor,
+					Color.Lerp(Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f),
+						(int)((drawInfo.position.Y + drawPlayer.height / 2f) / 16f)), modPlayer.clawColor, .5f),
 					0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f,
 					drawInfo.spriteEffects, 0);
 				data.shader = drawInfo.bodyArmorShader;
@@ -723,7 +712,8 @@ namespace CosmaliaMod
 				int drawX = (int)(drawInfo.position.X + drawPlayer.width / 2f - Main.screenPosition.X);
 				int drawY = (int)(drawInfo.position.Y + drawPlayer.height / 2f - Main.screenPosition.Y - 3);
 				DrawData data = new DrawData(texture, new Vector2(drawX, drawY), frame,
-					modPlayer.clawColor,
+					Color.Lerp(Lighting.GetColor((int)((drawInfo.position.X + drawPlayer.width / 2f) / 16f),
+						(int)((drawInfo.position.Y + drawPlayer.height / 2f) / 16f)), modPlayer.clawColor, .5f),
 					0f, new Vector2(texture.Width / 2f, frameSize / 2f), 1f,
 					drawInfo.spriteEffects, 0);
 				data.shader = drawInfo.bodyArmorShader;
@@ -754,11 +744,12 @@ namespace CosmaliaMod
 				int bodyIndex2 = layers.IndexOf(PlayerLayer.Wings);
 				int armIndex = layers.IndexOf(PlayerLayer.Arms);
 				layers.Insert(headIndex + 1, REars);
-				//layers.Insert(bodyIndex + 1, RClawsBack);
-				//layers.Insert(armIndex + 1, RClawsFront);
+				layers.Insert(bodyIndex + 1, RClawsBack);
+				layers.Insert(armIndex + 1, RClawsFront);
 				layers.Insert(bodyIndex2 - 1, RTail);
 			}
 
+			/*
 			if (arbHornV)
 			{
 				//int faceIndex = layers.IndexOf(PlayerLayer.Face);
@@ -801,6 +792,7 @@ namespace CosmaliaMod
 				}
 				layers.Insert(headIndex, Whiskers);
 			}
+			*/
 		}
 	}
 }

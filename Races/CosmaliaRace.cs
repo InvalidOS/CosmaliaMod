@@ -45,7 +45,7 @@ namespace CosmaliaMod
 		public Texture2D clawsFront;
 		public Texture2D clawsBack;
 
-		public virtual void UpdateStats()
+		public virtual void PreUpdateRace()
 		{
 			
 		}
@@ -55,16 +55,21 @@ namespace CosmaliaMod
 			return null;
 		}
 
+		public virtual DrawData? DrawTail(PlayerDrawInfo drawInfo)
+		{
+			return null;
+		}
+
 		public override void PreUpdate()
 		{
 			if (isRace)
 			{
-				UpdateStats();
-				Main.player[Main.myPlayer].GetModPlayer<CosmaliaPlayer>().intelligence = intelligence;
+				PreUpdateRace();
+				player.GetModPlayer<CosmaliaPlayer>().intelligence = intelligence;
 			}
 		}
-		
-		public override void PostUpdateEquips()
+
+		public override void PreUpdateBuffs()
 		{
 			if (isRace)
 			{

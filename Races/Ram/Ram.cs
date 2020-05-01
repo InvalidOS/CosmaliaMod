@@ -12,6 +12,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameInput;
 using Terraria.ModLoader.IO;
+using Terraria.Graphics.Shaders;
 using CosmaliaMod;
 
 namespace CosmaliaMod.Races.Ram
@@ -35,6 +36,8 @@ namespace CosmaliaMod.Races.Ram
 			resistance = 60;
 			intelligence = 70;
 			speed = 30;
+
+			player.dash = 1;
 		}
 
 		public override TagCompound Save()
@@ -49,6 +52,51 @@ namespace CosmaliaMod.Races.Ram
 		{
 			isRace = tag.GetBool("ram");
 		}
+
+		public override void PostUpdate()
+		{
+			if (player.dashDelay < 0)
+			{
+				ApplyDashHitbox();
+			}
+		}
+
+		public void ApplyDashHitbox()
+		{
+			Rectangle rectangle = new Rectangle((int)(player.position.X + player.velocity.X * 0.5 + (10 * player.direction)), (int)(player.position.Y + player.velocity.Y * 0.5 - 5), player.width + 6, player.height + 10);
+			for (int i = 0; i < 200; i++)
+			{
+				if (Main.npc[i].active && !Main.npc[i].dontTakeDamage && !Main.npc[i].friendly && Main.npc[i].immune[player.whoAmI] <= 0)
+				{
+					NPC npc = Main.npc[i];
+					Rectangle rect = npc.getRect();
+					if (rectangle.Intersects(rect) && (npc.noTileCollide || player.CanHit(npc)))
+					{
+						float dmg = 30f * player.meleeDamage;
+						float num2 = 50f;
+						bool crit = false;
+						if (Main.rand.Next(100) < player.meleeCrit)
+						{
+							crit = true;
+						}
+						int direction = player.direction;
+						if (player.velocity.X < 0f)
+						{
+							direction = -1;
+						}
+						if (player.velocity.X > 0f)
+						{
+							direction = 1;
+						}
+						player.ApplyDamageToNPC(npc, (int)dmg, num2, direction, crit);
+						player.Hurt(PlayerDeathReason.ByCustomReason(player.name + "bashed their skull in."), (int)(player.statLifeMax * .125f), direction * -10);
+						npc.immune[player.whoAmI] = 6;
+						player.immune = true;
+						player.immuneNoBlink = true;
+						player.immuneTime = 6;
+					}
+				}
+			}
+		}
 	}
 }
-

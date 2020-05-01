@@ -19,6 +19,7 @@ using CosmaliaMod.GUI;
 using MonoMod.Cil;
 using Mono.Cecil.Cil;
 using CosmaliaMod.Races;
+using CosmaliaMod.Races.Elf;
 using CosmaliaMod.Races.Ram;
 using CosmaliaMod.Races.Longtail;
 
