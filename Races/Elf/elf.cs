@@ -20,12 +20,13 @@ namespace CosmaliaMod.Races.Elf
 	{
 		//Player player = Main.player[player.whoAmI];
 		//CosmaliaRace race = Main.player[Main.myPlayer].GetModPlayer<CosmaliaRace>();
+
+		public override Texture2D ears() => mod.GetTexture("Races/Elf/ElfEar");
+		
+		public override Texture2D head() => mod.GetTexture("Races/Elf/ElfFace");
 		
 		public override void ResetEffects()
 		{
-			ears = mod.GetTexture("Races/Elf/ElfEar");
-			head = mod.GetTexture("Races/Elf/ElfFace");
-			
 			meleeAttack = 40;
 			rangedAttack = 65;
 			magicAttack = 70;

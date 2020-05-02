@@ -21,8 +21,8 @@ namespace CosmaliaMod
 		// Maximum for an attack stat, resistance, and speed is 100
 		// Maximum for intelligence is 120
 		// Maximum for HP is 250, refers to starting health
-		// Maximum for mana is 30, refers to starting mana
-		
+		// Maximum for mana is 60, refers to starting mana
+
 		public byte meleeAttack = 50;
 		public byte rangedAttack = 50;
 		public byte magicAttack = 50;
@@ -34,16 +34,16 @@ namespace CosmaliaMod
 		public byte speed = 50;
 		public bool isRace = false;
 		// public string description = "";
-		
-		public Texture2D ears;
-		public Texture2D head;
-		public Texture2D eyes;
-		public Texture2D headFront;
-		public Texture2D headBack;
-		public Texture2D tail;
-		public Texture2D legs;
-		public Texture2D clawsFront;
-		public Texture2D clawsBack;
+
+		public virtual Texture2D ears() => null;
+		public virtual Texture2D head() => null;
+		public virtual Texture2D eyes() => null;
+		public virtual Texture2D headFront() => null;
+		public virtual Texture2D headBack() => null;
+		public virtual Texture2D tail() => null;
+		public virtual Texture2D legs() => null;
+		public virtual Texture2D clawsFront() => null;
+		public virtual Texture2D clawsBack() => null;
 
 		public virtual void PreUpdateRace()
 		{
@@ -77,9 +77,8 @@ namespace CosmaliaMod
 				player.rangedDamage *= (float)((rangedAttack - 50) / 50 + 1);
 				player.magicDamage *= (float)((magicAttack - 50) / 50 + 1);
 				player.minionDamage *= (float)((summonAttack - 50) / 50 + 1);
-				player.endurance += (float)((resistance - 50) / 100);
+				player.endurance += (float)((resistance - 50) / (100 * (1.5f - (Math.Sign(resistance - 49.9f) * .5f))));
 				player.maxRunSpeed *= (float)((speed - 50) / 50 + 1);
-				//player.statLifeMax2 = player.statLifeMax * (float)(hp / 100);
 				player.statLifeMax2 = (int)((hp / 5) * (player.statLifeMax / 20));
 				player.statManaMax2 = (int)(mana * (player.statManaMax / 20));
 			}

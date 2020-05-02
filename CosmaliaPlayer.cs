@@ -243,16 +243,15 @@ namespace CosmaliaMod
 		{
 			if (arbLegs)
 			{
-				drawInfo.position.Y -= 14;
+				//drawInfo.position.Y -= 14;
 			}
+
 			skin = drawInfo.faceColor;
 
-			drawInfo.eyeWhiteColor = Color.Lerp(scleraColor,
-				Lighting.GetColor(
+			drawInfo.eyeWhiteColor = Lighting.GetColor(
 					(int)((drawInfo.position.X + player.width / 2f) / 16f),
-					(int)((drawInfo.position.Y + player.height / 2f) / 16f)
-				), .7f
-			);
+					(int)((drawInfo.position.Y + player.height / 2f) / 16f),
+					scleraColor);
 
 			if (intelligence < 95)
 			{

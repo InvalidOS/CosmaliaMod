@@ -23,18 +23,18 @@ namespace CosmaliaMod.Races.Longtail
 		byte tailFrame;
 		byte count;
 
+		public override Texture2D ears() => mod.GetTexture("Races/Longtail/Ear");
+		public override Texture2D tail() => mod.GetTexture("Races/Longtail/Tail");
+		public override Texture2D clawsFront() => mod.GetTexture("Races/Longtail/clawsFront");
+		public override Texture2D clawsBack() => mod.GetTexture("Races/Longtail/clawsBack");
+
 		public override void ResetEffects()
 		{
-			ears = mod.GetTexture("Races/Longtail/Ear");
-			tail = mod.GetTexture("Races/Longtail/Tail");
-			clawsFront = mod.GetTexture("Races/Longtail/clawsFront");
-			clawsBack = mod.GetTexture("Races/Longtail/clawsBack");
-
 			meleeAttack = 60;
-			rangedAttack = 60;
-			magicAttack = 35;
-			summonAttack = 30;
-			mana = 5;
+			rangedAttack = 55;
+			magicAttack = 55;
+			summonAttack = 20;
+			mana = 20;
 			hp = 40;
 			resistance = 20;
 			intelligence = 100;

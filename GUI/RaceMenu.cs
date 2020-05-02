@@ -47,8 +47,8 @@ namespace CosmaliaMod.GUI
 			QuickAddButton("Horns", new Vector2(Main.screenWidth / 4, 340), new MouseEvent(Customize1));
 			QuickAddButton("Claws", new Vector2(Main.screenWidth / 4, 380), new MouseEvent(Customize2));
 			QuickAddButton("Tail", new Vector2(Main.screenWidth / 4, 420), new MouseEvent(Customize3));
-			QuickAddButton("Race", new Vector2(Main.screenWidth / 4, 660), new MouseEvent(ChangeRace));
-			QuickAddTextbox("MAN :horse:", new Vector2(3*Main.screenWidth / 4, 600));
+			QuickAddButton("Race", new Vector2(Main.screenWidth / 4, 460), new MouseEvent(ChangeRace));
+			QuickAddDesc();
 		}
 
 		public void DontRemoveChildrenOhMyGodHowCouldYou()
@@ -58,9 +58,10 @@ namespace CosmaliaMod.GUI
 			QuickAddButton("Horns", new Vector2(Main.screenWidth / 4, 340), new MouseEvent(Customize1));
 			QuickAddButton("Claws", new Vector2(Main.screenWidth / 4, 380), new MouseEvent(Customize2));
 			QuickAddButton("Tail", new Vector2(Main.screenWidth / 4, 420), new MouseEvent(Customize3));
-			QuickAddButton("Race", new Vector2(Main.screenWidth / 4, 660), new MouseEvent(ChangeRace));
+			QuickAddButton("Race", new Vector2(Main.screenWidth / 4, 460), new MouseEvent(ChangeRace));
 			QuickAddDesc();
 		}
+
 		private void ChangeToHuman(UIMouseEvent evt, UIElement listeningElement)
 		{
 			Main.menuMode = 2;
@@ -72,7 +73,7 @@ namespace CosmaliaMod.GUI
 			QuickAddButton("Horns", new Vector2(Main.screenWidth / 4, 340), new MouseEvent(Customize1));
 			QuickAddButton("Claws", new Vector2(Main.screenWidth / 4, 380), new MouseEvent(Customize3));
 			QuickAddButton("Tail", new Vector2(Main.screenWidth / 4, 420), new MouseEvent(Customize2));
-			QuickAddButton("Race", new Vector2(Main.screenWidth / 4, 660), new MouseEvent(ChangeRace));
+			QuickAddButton("Race", new Vector2(Main.screenWidth / 4, 460), new MouseEvent(ChangeRace));
 
 			part = ActivePart.none;
 		}
