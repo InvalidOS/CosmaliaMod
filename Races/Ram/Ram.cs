@@ -22,11 +22,11 @@ namespace CosmaliaMod.Races.Ram
 		//Player player = Main.player[player.whoAmI];
 		//CosmaliaRace race = Main.player[Main.myPlayer].GetModPlayer<CosmaliaRace>();
 
+		public override Texture2D headFront() => mod.GetTexture("Races/Ram/HornFront");
+		public override Texture2D headBack() => mod.GetTexture("Races/Ram/HornBack");
+
 		public override void ResetEffects()
 		{
-			headFront = mod.GetTexture("Races/Ram/HornFront");
-			headBack = mod.GetTexture("Races/Ram/HornBack");
-
 			meleeAttack = 100;
 			rangedAttack = 20;
 			magicAttack = 45;
